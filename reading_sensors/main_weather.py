@@ -1,26 +1,18 @@
 # Import libraries:
-import bme280
-import smbus2
 #raindrop sensor DO connected to GPIO18
 
-
-import datetime
 from time import sleep
+import time
 from pprint import pprint
 
-from utils import extractBME, determineRainState, extractTime
+from utils import extractBME, average_states
 
-port = 1
-address = 0x77 #! Adafruit BME280 address. Other BME280s may be different 
-bus = smbus2.SMBus(port)
-
-
-
-bme280.load_calibration_params(bus,address)
+#array with current state to cache
+weather_arr = []
+timer = 60 #sleep timer for main loop in seconds
 
 class Current_state_class : 
-     def __init__(self, time,  temperature, humidity, pressure, rain):
-        self.time = time
+     def __init__(self,  temperature, humidity, pressure, rain):
         self.temperature = temperature
         self.humidity = humidity
         self.pressure = pressure
@@ -28,29 +20,35 @@ class Current_state_class :
     
   
 def main():
-   #Get current time
-    time = extractTime()
-    #print(time)
+
     weatherList = extractBME()
-    rainFlag = determineRainState()
-    current_state = Current_state_class(time, weatherList[0], weatherList[1], weatherList[2], rainFlag)
-    res = vars(current_state)
-    pprint(res)
+    rainFlag = 0
     #write values in current object
-    current_state = Current_state_class(time, weatherList[0], weatherList[1], weatherList[2], rainFlag)
+    current_state = Current_state_class(weatherList[0], weatherList[1], weatherList[2], rainFlag)
     #Print object in readable format
     res = vars(current_state)
     pprint(res)
-    return current_state
+    #add state to the array
+    weather_arr.append(current_state)
+
+    if(len(weather_arr) == 11):
+          print("We have 10 states now, let's find the average")
+          try :
+              t = average_states(weather_arr)
+              weather_arr = []
+              pprint(vars(t))
+          except Exception as arg:
+              print(arg)
+    return 
 
 
-
+#main loop 
 while True:
     try:
         main()
     except Exception as argument: #Main error handling for any kind of error
         print("Seems like error ocurred. Here's what happened : \n", argument)
-    sleep(1)
+    sleep(timer)
 
 
 
