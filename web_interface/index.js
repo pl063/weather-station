@@ -9,7 +9,7 @@
     app.set( "view engine" , ".hbs");
     app.use('/static', express.static('static'));
     app.use(express.urlencoded({extended: true}));
-    app.set('views', './views');
+    app.set('views', './views/');
 
     app.route("/")
     .get((req, res) => {
