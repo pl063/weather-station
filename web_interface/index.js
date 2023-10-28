@@ -11,7 +11,11 @@
     app.use(express.urlencoded({extended: true}));
     app.set('views', './views/');
 
-    app.route("/")
+    app.route("/").get((req, res) => { res.redirect('/dashboard')
+        res.statusCode = 301;
+    })
+
+    app.route("/dashboard")
     .get((req, res) => {
        res.render("homePage", (err, html) => {
            if(err) {
