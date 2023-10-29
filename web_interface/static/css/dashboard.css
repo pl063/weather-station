@@ -1,0 +1,70 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&family=Overpass+Mono:wght@500&family=Prata&display=swap');
+.dash {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2%;
+    height: 100%;
+   
+  }
+  
+  #current_state {
+    display: flex;
+    font-family: 'Comfortaa', sans-serif;
+    flex-direction: column;
+    gap: 1rem;
+    flex-basis: max-content;
+    width: 80%;
+    height: 100%;
+    background: #7f8cc7;
+    border-radius: 1rem;
+  }
+
+  span{
+    display: flex;
+    width: 80%;
+    margin-top: -3%;
+    justify-content: flex-end;
+  }
+
+  img{
+    height: 5rem;
+  }
+
+  .current_time {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1%;
+    margin-left: 1%;
+  }
+
+  #time {
+    font-size: 3rem;
+  }
+
+  #date {
+    font-size: 1.5rem;
+  }
+
+  .params {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .result {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 5rem;
+  }
+
+  .r {
+    font-size: 2rem;
+  }
+
+  h1 {
+    font-family: 'Comfortaa Regular 400', sans-serif;
+  }

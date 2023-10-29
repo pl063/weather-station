@@ -1,7 +1,2 @@
 @import url("./nav.css");
-
-.content {
-    display: flex;
-    flex-direction: column;
-    
-}
+@import url("./dashboard.css");
