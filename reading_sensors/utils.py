@@ -1,5 +1,5 @@
 
-#from bme280pi import Sensor
+from bme280pi import Sensor
 import datetime
 from math import ceil
 
@@ -7,7 +7,7 @@ import time
 
 #isRaining = InputDevice(18)
 
-#sensor = Sensor(address=0x76) !or 0x77
+sensor = Sensor(address=0x76) 
 
 class Average_state_class : 
      def __init__(self,  temperature, humidity, pressure, rain, time):
@@ -20,8 +20,10 @@ class Average_state_class :
 
 def extractBME():
     try :
-        sensor_data = sensor.get_data()
-        result = sensor_data
+        result = []
+        result.append(ceil(sensor.get_temperature()))
+        result.append(ceil(sensor.get_humidity()))
+        result.append(ceil(sensor.get_pressure()))
     except Exception as arg:
          print("Something's wrong with the BME sensor : \n", arg)
          result = [0, 0, 0]
@@ -44,8 +46,7 @@ def extractTime():
     return result
 
 def average_states(arr):
-    #it takes 1 second
-    print(time.time())
+
     current_average = {}
 
     current_sum_temp = 0
@@ -59,13 +60,13 @@ def average_states(arr):
 
         if(obj == 0) :
             continue
-        current_sum_temp += int(obj.temperature)
-        current_sum_press += int(obj.pressure)
-        current_sum_hum += int(obj.humidity)
-        current_sum_rain += int(obj.rain)
+        current_sum_temp += obj.temperature
+        current_sum_press += obj.pressure
+        current_sum_hum += obj.humidity
+        current_sum_rain += obj.rain
 
         if(i  == 9) :
-            count = len(arr) - 1
+            count = len(arr)
             t = ceil(current_sum_temp / count)
             h =  ceil(current_sum_hum / count)
             p =  ceil(current_sum_press / count)
@@ -76,5 +77,5 @@ def average_states(arr):
 
         else :
             i += 1
-    print(time.time())
+
     return  current_average
