@@ -133,4 +133,4 @@ dist
 venv/
 
 #Ignore SSL certificate
-.pem
+*.pem
