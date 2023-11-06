@@ -13,26 +13,5 @@
         return {currentDay, time}
     }
 
-    function counter (timer) {
-    let resultFlag = false;
-        try {
-            let i = 0; 
-            timer = Number(timer)
 
-            while (i < timer) {
-                //if i is 1 step close to timer
-                if(i+1 === timer) {
-                    resultFlag = true;
-                }
-                i++;
-            }
-
-        }
-        catch {
-            throw new Error("Invalid param type, expected Number.");
-        }
-        
-        return resultFlag
-    }
-
-    export {getTime, counter}
+    export {getTime}

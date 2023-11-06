@@ -18,8 +18,9 @@
     flex-basis: max-content;
     width: 400%;
     height: 250%;
-    background-color: #7f8cc7bd;
-    margin-top: 50%;
+    background-color: #a0a9cf97;
+    box-shadow: 0 0.01rem 0.2rem black;
+    margin-top: 70%;
     border-radius: 1rem;
   }
 
