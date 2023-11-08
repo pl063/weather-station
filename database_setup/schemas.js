@@ -2,7 +2,6 @@
     import mongoose from "mongoose";
     
     const Schema = mongoose.Schema;
-    const ObjectId = Schema.ObjectId;
 
     //Define current_state schema
     const current_state = new Schema({
