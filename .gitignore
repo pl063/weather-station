@@ -134,3 +134,4 @@ venv/
 
 #Ignore SSL certificate
 *.pem
+database_setup/conf.js
