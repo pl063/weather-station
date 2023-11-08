@@ -1,11 +1,13 @@
 
+
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&family=Overpass+Mono:wght@500&family=Prata&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luxurious+Roman&family=Neucha&family=Roboto+Condensed:ital,wght@0,400;1,300&family=Roboto+Slab&display=swap');
+
 .dash {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    margin-top: 2%;
+    margin-top: 3%;
     height: 100%;
   }
   
@@ -20,7 +22,7 @@
     height: 250%;
     background-color: #a0a9cf97;
     box-shadow: 0 0.01rem 0.2rem black;
-    margin-top: 70%;
+    margin-top: 20%;
     border-radius: 1rem;
   }
 
@@ -73,7 +75,8 @@
   }
 
   h1 {
-    font-family: 'Comfortaa Regular 400', sans-serif;
+    font-family: 'Neucha', cursive;
+    font-size: 3rem;
   }
 
   .name {
