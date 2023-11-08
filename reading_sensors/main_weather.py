@@ -6,10 +6,11 @@ import time
 from pprint import pprint
 
 from utils import extractBME, average_states
+from api import insert_current_state
 
 #array with current state to cache
 weather_arr = []
-timer = 1 #sleep timer for main loop in seconds
+timer = 60 #sleep timer for main loop in seconds
 
 class Current_state_class : 
      def __init__(self,  temperature, humidity, pressure, rain):
@@ -36,7 +37,8 @@ def main():
           try :
               t = average_states(weather_arr)
               weather_arr.clear()
-              pprint(vars(t))
+              #pprint(vars(t))
+              insert_current_state(t.__dict__)
           except Exception as arg:
               print(arg)
     return 

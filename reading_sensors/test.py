@@ -2,6 +2,7 @@
 from pprint import pprint
 
 from utils import average_states
+from api import insert_current_state
 timer = 60
 
 
@@ -31,6 +32,7 @@ def main(arr):
               t = average_states(weather_arr)
               weather_arr = []
               pprint(vars(t))
+              insert_current_state(t.__dict__)
           except Exception as arg:
               print(arg)
 
