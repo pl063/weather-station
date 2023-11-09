@@ -3,7 +3,6 @@ from bme280pi import Sensor
 import datetime
 from math import ceil
 
-import time
 
 #isRaining = InputDevice(18)
 
@@ -65,7 +64,7 @@ def average_states(arr):
         current_sum_hum += obj.humidity
         current_sum_rain += obj.rain
 
-        if(i  == 9) :
+        if(i  == 1) :
             count = len(arr)
             t = ceil(current_sum_temp / count)
             h =  ceil(current_sum_hum / count)

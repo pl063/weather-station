@@ -2,7 +2,6 @@
 #raindrop sensor DO connected to GPIO18
 
 from time import sleep
-import time
 from pprint import pprint
 
 from utils import extractBME, average_states
@@ -10,7 +9,7 @@ from api import insert_current_state
 
 #array with current state to cache
 weather_arr = []
-timer = 60 #sleep timer for main loop in seconds
+timer = 30 #sleep timer for main loop in seconds
 
 class Current_state_class : 
      def __init__(self,  temperature, humidity, pressure, rain):
@@ -32,7 +31,7 @@ def main():
     #add state to the array
     weather_arr.append(current_state)
 
-    if(len(weather_arr) == 10):
+    if(len(weather_arr) == 2):
           print("We have 10 states now, let's find the average")
           try :
               t = average_states(weather_arr)
