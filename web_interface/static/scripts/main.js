@@ -1,4 +1,5 @@
     import * as utils from "./utils.js"
+    import * as translation from "./translate.js"
 
     window.addEventListener("load", (event) => main(event));
 
@@ -20,3 +21,6 @@
     }
 
     updateTime();
+
+    const translateElement = document.querySelector("#language");
+    translateElement.addEventListener("click", (ev) => translation.translate(ev));
