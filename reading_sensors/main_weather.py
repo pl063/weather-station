@@ -4,12 +4,13 @@
 from time import sleep
 from pprint import pprint
 
-from utils import extractBME, average_states
+from utils import extractBME, average_states, determineRainState
 from api import insert_current_state
 
 #array with current state to cache
 weather_arr = []
 timer = 30 #sleep timer for main loop in seconds
+average_counter = 2 #how many objects should be averaged
 
 class Current_state_class : 
      def __init__(self,  temperature, humidity, pressure, rain):
@@ -22,7 +23,7 @@ class Current_state_class :
 def main():
 
     weatherList = extractBME()
-    rainFlag = 0
+    rainFlag = determineRainState()
     #write values in current object
     current_state = Current_state_class(weatherList[0], weatherList[1], weatherList[2], rainFlag)
     #Print object in readable format
@@ -31,7 +32,7 @@ def main():
     #add state to the array
     weather_arr.append(current_state)
 
-    if(len(weather_arr) == 2):
+    if(len(weather_arr) == average_counter):
           print("We have 10 states now, let's find the average")
           try :
               t = average_states(weather_arr)

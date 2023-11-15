@@ -26,7 +26,8 @@ def insert_current_state(state):
            led_output("uploading")
            mycol = mydb["current_days"]
            x = mycol.insert_one(state)
+          # print(state)
            led_output("success")
-           print(x.inserted_id)
+          # print(x.inserted_id)
     except Exception as err:
            print(err)

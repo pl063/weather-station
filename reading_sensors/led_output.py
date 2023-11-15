@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 green_pin = 12
 blue_pin = 19
@@ -17,14 +18,15 @@ def turn_off():
     GPIO.output(green_pin,GPIO.LOW)
 
 def led_output(message): 
+    print(message)
     match message:
         case "success": make_led_color("green")
         case "failure": make_led_color("red")
         case "uploading": make_led_color("blue")
 
 def make_led_color(color): 
-    color_pin
-    rest_color_pins
+    color_pin = ""
+    rest_color_pins = ""
     match color:
         case "green": color_pin = green_pin; rest_color_pins = [red_pin, blue_pin]
         case "red": color_pin = red_pin; rest_color_pins = [green_pin, blue_pin]

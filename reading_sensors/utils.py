@@ -1,12 +1,13 @@
 
 from bme280pi import Sensor
+from gpiozero import InputDevice
 import datetime
 from math import ceil
 
 
-#isRaining = InputDevice(18)
+isRaining = InputDevice(18) # 1 if it's not raining, 0 if it's raining
 
-sensor = Sensor(address=0x76) 
+sensor = Sensor(address=0x77) 
 
 class Average_state_class : 
      def __init__(self,  temperature, humidity, pressure, rain, time):
@@ -30,11 +31,11 @@ def extractBME():
 
 def determineRainState(): 
     try:
-        if isRaining.is_active:
-            print("It's raining")
-            return True
-        else :
-            return False
+        result = isRaining.value
+        if (result == 1):
+            return 0
+        else: 
+            return 1
     except Exception as arg : 
         print("Something's wrong with the rain sensor : \n", arg)
         return "unknown"
