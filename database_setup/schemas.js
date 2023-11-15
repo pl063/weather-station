@@ -8,7 +8,7 @@
         temperature : { type: Number, default: 0 },
         humidity : { type: Number, default: 0 },
         pressure : { type: Number, default: 0 },
-        rain : { type: Boolean, default: false },
+        rain : { type: Number, default: 0 },
         time : { type: Date, default: Date.now}
       });
     
