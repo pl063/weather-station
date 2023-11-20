@@ -15,7 +15,6 @@
 
     try {
         const conn = await mongoose.createConnection(uri);
-        console.log("Connected to db");
         const current_state_model = conn.model("current_days", result);
         const hotModel = new current_state_model({temperature: 25, humidity: 20, rain: 1, pressure:20});
         await hotModel.save();
