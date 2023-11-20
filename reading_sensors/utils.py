@@ -71,8 +71,7 @@ def average_states(arr):
             p =  ceil(current_sum_press / count)
             r =  ceil(current_sum_rain / count)
 
-            current_time = extractTime()
-            current_average =  Average_state_class(t, h, p, r, current_time)
+            current_average =  Average_state_class(t, h, p, r)
 
         else :
             i += 1
