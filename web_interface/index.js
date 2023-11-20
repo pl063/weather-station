@@ -10,7 +10,7 @@
     const expressHandlebars = require("express-handlebars");
 
     
-    const Data = require("../database_setup/schemas.cjs");
+    const dataScheme = require("../database_setup/schemas.cjs");
   //  const getCurrentState = require("./fetchDb.js")
 
     app.engine(".hbs", expressHandlebars.create({
@@ -67,10 +67,8 @@
                  //retrieve current state
                     try {
                       
-                      const res = await Data.findOne().sort('-created_at').exec(function(err, post) {
-                        console.log(post)
-                       });
-                     
+                      const res = await database.model("current_days",dataScheme).findOne().sort('-created_at').exec();
+                      //todo send header with info for the last state
                     } catch (err) {
                        console.log(err)
                     }
