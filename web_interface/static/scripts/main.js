@@ -8,9 +8,11 @@
         //update time each minute
         setInterval(updateTime, 6000);
         event.preventDefault();
-        let res =  fetchDb.getCurrentState()
-
-        //connect with db
+       
+       setInterval(function () {
+        window.location.reload();
+       }, 600000); 	//refresh page each 10 minutes
+       
 
     }
 
@@ -25,6 +27,8 @@
         timeElement.textContent = result.time;
     }
 
+
+ 
 
 
     //show time on 1st upload
