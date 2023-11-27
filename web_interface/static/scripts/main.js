@@ -8,9 +8,10 @@
         //update time each minute
         setInterval(updateTime, 6000);
         event.preventDefault();
-       
-       setInterval(function () {
+        updateImages();
+        setInterval(function () {
         window.location.reload();
+        updateImages();
        }, 600000); 	//refresh page each 10 minutes
        
 
@@ -25,6 +26,47 @@
 
         dateElement.textContent = result.currentDay;
         timeElement.textContent = result.time;
+    }
+
+    function updateImages () {
+        let urlObj;
+
+        const weatherIcon = document.querySelector("#icon");
+        const temperatureElement = document.querySelector("#temperature");
+        const rainElement = document.querySelector("#rain");
+
+        const backgroundElement = document.querySelector("body");
+
+        //determine weather state
+
+        let temperature = Number(temperatureElement.textContent);
+        let rain = Number(rainElement.textContent);
+        let rainFlag = false;
+        if(rain === 1) {
+            rainFlag = true;
+        }
+
+        let result;
+
+        if (temperature <= 10 && temperature >= 0) {
+            rainFlag 
+            ? result = utils.updateImageUrl("rain") 
+            :  result = utils.updateImageUrl("cold")
+        } else if (temperature > 10 && temperature <=25) {
+            rainFlag 
+            ? result = utils.updateImageUrl("rain") 
+            : result = utils.updateImageUrl()
+        } else if (temperature > 25) {
+            rainFlag 
+            ? result = utils.updateImageUrl("rain") 
+            : result = utils.updateImageUrl("hot")
+        } else if (temperature < 0) {
+            rainFlag 
+            ? result = utils.updateImageUrl("snow") 
+            : result = utils.updateImageUrl("cold")
+        }
+        weatherIcon.src = result.iconUrl;
+        backgroundElement.style.backgroundImage = `url(${result.backgroundUrl})`; 
     }
 
 
