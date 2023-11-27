@@ -34,6 +34,7 @@
     process.env.NODE_ENV === "production";
 
     //Connect to db
+    let connectedDatabase = false;
     const mongoString = process.env.DATABASE_URL;
     mongoose.connect(mongoString);
 
@@ -45,6 +46,7 @@
     
     database.once('connected', () => {
         console.log('Database Connected');
+        connectedDatabase = true;
     })
 
 
@@ -55,26 +57,37 @@
 
 
     app.route("/dashboard")
-    .get( function (req, res){
-        res.render("homePage", {layout: "main"}, async function (err, html){
-            if(err) {
-                res.statusCode = 444; 
-                console.log(err);
-                 res.send("Something went wrong!");
-                 
+    .get( async function (req, res){
+        try {
+            //check if db is connected and use db value OR N|A
+            let renderArgument = [];
+
+            if (connectedDatabase) {
+                const data = await database.model("current_days",dataScheme).findOne().sort('-created_at').exec();
+                renderArgument.push(data);
             } else {
-                 res.send(html);
-                 //retrieve current state
-                    try {
-                      
-                      const res = await database.model("current_days",dataScheme).findOne().sort('-created_at').exec();
-                      //todo send header with info for the last state
-                    } catch (err) {
-                       console.log(err)
-                    }
-                
+                renderArgument.push ({
+                    temperature : "N/A",
+                     humidity : "N/A", 
+                     pressure : "N/A",
+                     rain: "N/A"
+                })
             }
-        });
+            let {temperature, humidity, pressure, rain} = renderArgument[0];
+            res.render("homePage", {layout: "main", temperature, humidity, pressure, rain}, async function (err, html){
+                if(err) {
+                    res.statusCode = 444; 
+                    console.log(err);
+                     res.send("Something went wrong!");
+                     
+                } else {
+                     res.send(html);
+                }
+            });
+          } catch (err) {
+             console.log(err);
+          }
+       
 
         
     })
