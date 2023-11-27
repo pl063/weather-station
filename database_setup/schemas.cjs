@@ -1,5 +1,5 @@
     //Define database schemas
-    import mongoose from "mongoose";
+    const mongoose = require("mongoose")
     
     const Schema = mongoose.Schema;
 
@@ -8,9 +8,10 @@
         temperature : { type: Number, default: 0 },
         humidity : { type: Number, default: 0 },
         pressure : { type: Number, default: 0 },
-        rain : { type: Boolean, default: false },
-        time : { type: Date, default: Date.now}
+        rain : { type: Number, default: 0 }
       });
     
+    current_state.set("timestamps", true);
 
-      export {current_state}
+
+      module.exports = current_state;
