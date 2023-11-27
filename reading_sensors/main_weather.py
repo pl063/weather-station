@@ -9,7 +9,7 @@ from api import insert_current_state
 
 #array with current state to cache
 weather_arr = []
-timer = 30 #sleep timer for main loop in seconds
+timer = 10 #sleep timer for main loop in seconds
 average_counter = 2 #how many objects should be averaged
 
 class Current_state_class : 

@@ -10,12 +10,11 @@ isRaining = InputDevice(18) # 1 if it's not raining, 0 if it's raining
 sensor = Sensor(address=0x77) 
 
 class Average_state_class : 
-     def __init__(self,  temperature, humidity, pressure, rain, time):
+     def __init__(self,  temperature, humidity, pressure, rain):
         self.temperature = temperature
         self.humidity = humidity
         self.pressure = pressure
         self.rain = rain
-        self.time = time
     
 
 def extractBME():
@@ -72,8 +71,7 @@ def average_states(arr):
             p =  ceil(current_sum_press / count)
             r =  ceil(current_sum_rain / count)
 
-            current_time = extractTime()
-            current_average =  Average_state_class(t, h, p, r, current_time)
+            current_average =  Average_state_class(t, h, p, r)
 
         else :
             i += 1
