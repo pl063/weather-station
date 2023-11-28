@@ -18,11 +18,11 @@
     flex-direction: column;
     gap: 1rem;
     flex-basis: max-content;
-    width: 150%;
+    width: 250%;
     height: 250%;
-    background-color: rgba(51, 199, 187, 0.454);
+    background-color: #a0a9cf97;
     box-shadow: 0 0.01rem 0.2rem black;
-    margin-top: 10%;
+    margin-top: 20%;
     border-radius: 1rem;
   }
 
@@ -75,8 +75,8 @@
   }
 
   h1 {
-    font-family: 'Comfortaa';
-    font-size: 2.5rem;
+    font-family: 'Neucha', cursive;
+    font-size: 3rem;
   }
 
   .name {
