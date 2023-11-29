@@ -2,6 +2,7 @@
 from bme280pi import Sensor
 from gpiozero import InputDevice
 import datetime
+from bson.timestamp import Timestamp
 from math import ceil
 
 
@@ -10,12 +11,12 @@ isRaining = InputDevice(18) # 1 if it's not raining, 0 if it's raining
 sensor = Sensor(address=0x77) 
 
 class Average_state_class : 
-     def __init__(self,  temperature, humidity, pressure, rain):
+     def __init__(self,  temperature, humidity, pressure, rain, created_at):
         self.temperature = temperature
         self.humidity = humidity
         self.pressure = pressure
         self.rain = rain
-    
+        self.created_at = created_at
 
 def extractBME():
     try :
@@ -44,7 +45,7 @@ def extractTime():
     result = currentTime.strftime("%Y-%m-%d %H:%M:%S")
     return result
 
-def average_states(arr):
+def average_states(arr, counter):
 
     current_average = {}
 
@@ -64,14 +65,14 @@ def average_states(arr):
         current_sum_hum += obj.humidity
         current_sum_rain += obj.rain
 
-        if(i  == 1) :
+        if(i + 1  == counter) :
             count = len(arr)
             t = ceil(current_sum_temp / count)
             h =  ceil(current_sum_hum / count)
             p =  ceil(current_sum_press / count)
             r =  ceil(current_sum_rain / count)
-
-            current_average =  Average_state_class(t, h, p, r)
+            timestamp = Timestamp(int(datetime.datetime.today().timestamp()), 1)
+            current_average =  Average_state_class(t, h, p, r, timestamp.time)
 
         else :
             i += 1

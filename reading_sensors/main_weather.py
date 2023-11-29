@@ -9,8 +9,8 @@ from api import insert_current_state
 
 #array with current state to cache
 weather_arr = []
-timer = 10 #sleep timer for main loop in seconds
-average_counter = 2 #how many objects should be averaged
+timer = 60 #sleep timer for main loop in seconds
+average_counter = 10 #how many objects should be averaged
 
 class Current_state_class : 
      def __init__(self,  temperature, humidity, pressure, rain):
@@ -35,7 +35,7 @@ def main():
     if(len(weather_arr) == average_counter):
           print("We have 10 states now, let's find the average")
           try :
-              t = average_states(weather_arr)
+              t = average_states(weather_arr, average_counter)
               weather_arr.clear()
               #pprint(vars(t))
               insert_current_state(t.__dict__)
