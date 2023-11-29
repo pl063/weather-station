@@ -35,11 +35,11 @@
         const temperatureElement = document.querySelector("#temperature");
         const rainElement = document.querySelector("#rain");
 
-        const backgroundElement = document.querySelector("body");
+        //const backgroundElement = document.querySelector("body");
 
         //determine weather state
 
-        let temperature = Number(temperatureElement.textContent);
+        let temperature = Number(temperatureElement.textContent.substring(0, 2));
         let rain = Number(rainElement.textContent);
         let rainFlag = false;
         if(rain === 1) {
@@ -66,7 +66,7 @@
             : result = utils.updateImageUrl("cold")
         }
         weatherIcon.src = result.iconUrl;
-        backgroundElement.style.backgroundImage = `url(${result.backgroundUrl})`; 
+        //backgroundElement.style.backgroundImage = `url(${result.backgroundUrl})`; 
     }
 
 

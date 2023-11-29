@@ -63,8 +63,9 @@
             let renderArgument = [];
 
             if (connectedDatabase) {
-                const data = await database.model("current_days",dataScheme).findOne().sort('-created_at').exec();
-                renderArgument.push(data);
+                const data = await database.model("current_days",dataScheme).find().sort({_id:-1});
+               // console.log(data[0]);
+                renderArgument.push(data[0]);
             } else {
                 renderArgument.push ({
                     temperature : "N/A",
