@@ -10,7 +10,8 @@
     const expressHandlebars = require("express-handlebars");
 
     
-    const dataScheme = require("../database_setup/schemas.cjs");
+   
+    const retrieveLastEntry = require("./middleware.js");
   //  const getCurrentState = require("./fetchDb.js")
 
     app.engine(".hbs", expressHandlebars.create({
@@ -63,9 +64,9 @@
             let renderArgument = [];
 
             if (connectedDatabase) {
-                const data = await database.model("current_days",dataScheme).find().sort({_id:-1});
-               // console.log(data[0]);
-                renderArgument.push(data[0]);
+                let result = await retrieveLastEntry(database);
+                //console.log(result);
+                renderArgument.push(result);
             } else {
                 renderArgument.push ({
                     temperature : "N/A",
