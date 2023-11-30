@@ -6,7 +6,8 @@
         "Humidity:": "Влажност:",
         "Pressure:": "Налягане:",
         "Rain:": "Дъжд:",
-        "Created by Teodora Slavova 2023": "Създадено от Теодора Славова 2023"
+        "Created by Teodora Slavova 2023": "Създадено от Теодора Славова 2023",
+        "Altitude:" : "Надморска височина:"
     }
 
     const englishDictionary = {
@@ -17,7 +18,8 @@
         "Влажност:": "Humidity:",
         "Налягане:": "Pressure:",
         "Дъжд:": "Rain:",
-        "Създадено от Теодора Славова 2023": "Created by Teodora Slavova 2023"
+        "Създадено от Теодора Славова 2023": "Created by Teodora Slavova 2023",
+        "Надморска височина:" : "Altitude:"
     }
 
     export {bulgarianDictionary, englishDictionary}

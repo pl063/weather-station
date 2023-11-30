@@ -12,7 +12,16 @@
         //console.log(data[data.length - 1])
           if (!data) return;
         
-        return data[data.length - 1]
+        let databaseObj = data[data.length - 1]
+        let x = Math.ceil(Number(databaseObj.pressure) / 1013.25)
+        let altitude = 145366.45 * (1 -  Math.pow(x, 0.190284))
+        console.log(altitude)
+        Object.defineProperty(databaseObj, "altitude", {
+            value: altitude
+        });
+       
+        console.log(databaseObj)
+        return databaseObj
     };
 
     module.exports = retrieveLastEntry;
