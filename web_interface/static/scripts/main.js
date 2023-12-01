@@ -6,11 +6,13 @@
 
     function main (event) {
         //update time each minute
+        getAltitude();
         setInterval(updateTime, 6000);
         event.preventDefault();
         updateImages();
         setInterval(function () {
         window.location.reload();
+        getAltitude();
         updateImages();
        }, 600000); 	//refresh page each 10 minutes
        
@@ -69,7 +71,17 @@
         //backgroundElement.style.backgroundImage = `url(${result.backgroundUrl})`; 
     }
 
+    function getAltitude () {
+        const pressureElement = document.querySelector("#pressure");
+        const altitudeElement = document.querySelector("#altitude");
 
+        const pressure = Number(pressureElement.textContent.substring(0, 4));
+
+        let x = Math.ceil(Number(pressure) / 1013.25)
+        let altitude = 145366.45 * (1 -  Math.pow(x, 0.190284))
+       //console.log(altitude)
+        altitudeElement.textContent = `${altitude}m`
+    };
  
 
 

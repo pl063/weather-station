@@ -75,8 +75,8 @@
                      rain: "N/A"
                 })
             }
-            let {temperature, humidity, pressure, rain, altitude} = renderArgument[0];
-            res.render("homePage", {layout: "main", temperature, humidity, pressure, rain, altitude}, async function (err, html){
+            let {temperature, humidity, pressure, rain} = renderArgument[0];
+            res.render("homePage", {layout: "main", temperature, humidity, pressure, rain}, async function (err, html){
                 if(err) {
                     res.statusCode = 444; 
                     console.log(err);
