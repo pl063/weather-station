@@ -5,5 +5,8 @@
     "mongodb": "^6.2.0",
     "mongoose": "^8.0.0",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    
   }
 }

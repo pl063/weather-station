@@ -77,8 +77,9 @@
 
         const pressure = Number(pressureElement.textContent.substring(0, 4));
 
-        let x = Math.ceil(Number(pressure) / 1013.25)
-        let altitude = 145366.45 * (1 -  Math.pow(x, 0.190284))
+        let altitude;
+        let x = Math.ceil(Number(pressure) / 1013.25);
+        isNaN(pressure) ? altitude = "N/A" : altitude = 145366.45 * (1 -  Math.pow(x, 0.190284));
        //console.log(altitude)
         altitudeElement.textContent = `${altitude}m`
     };

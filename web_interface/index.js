@@ -2,8 +2,10 @@
     const logger = require("morgan");
     const mongoose = require("mongoose");
     const bodyParser = require("body-parser");
+    const path = require("path");
   
     require("dotenv").config();
+    const dbUrl = require("./conf.js");
 
     const app = express();
     const port = 5500; 
@@ -21,11 +23,12 @@
         partialsDir: __dirname + '/views/partials/'
     }).engine);
 
-   app.use(bodyParser.json({limit: "50mb"}));
+    app.use(bodyParser.json({limit: "50mb"}));
     app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
     app.set( "view engine" , ".hbs");
     app.use('/static', express.static('static'));
+    app.use('/node_modules', express.static('node_modules'))
     app.use(express.urlencoded({extended: true}));
     app.use(logger("dev"));
     app.use(express.json());
@@ -36,7 +39,8 @@
 
     //Connect to db
     let connectedDatabase = false;
-    const mongoString = process.env.DATABASE_URL;
+    const mongoString = dbUrl;
+    //console.log(mongoString);
     mongoose.connect(mongoString);
 
     const database = mongoose.connection;
@@ -65,7 +69,7 @@
 
             if (connectedDatabase) {
                 let result = await retrieveLastEntry(database);
-                //console.log(result);
+               // console.log(result);
                 renderArgument.push(result);
             } else {
                 renderArgument.push ({
