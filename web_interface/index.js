@@ -5,7 +5,7 @@
     const path = require("path");
   
     require("dotenv").config();
-    const dbUrl = require("./conf.js");
+   // const dbUrl = require("./conf.js");
 
     const app = express();
     const port = 5500; 
@@ -33,13 +33,14 @@
     app.use(logger("dev"));
     app.use(express.json());
     app.set('views', './views/');
+    app.use(express.json()) 
 
     app.enable("view cache");
     process.env.NODE_ENV === "production";
 
     //Connect to db
     let connectedDatabase = false;
-    const mongoString = dbUrl;
+    const mongoString = process.env.DATABASE_URL;
     //console.log(mongoString);
     mongoose.connect(mongoString);
 
@@ -119,9 +120,10 @@
 
             if (connectedDatabase) {
                 let result = await middleware.retrieveEntries(database);
-                console.log(result)
+                entries = result;
+                //console.log(result)
             } 
-            res.send(entries);
+            res.json(JSON.stringify(entries));
         } catch (err){
             console.log(err);
         }
