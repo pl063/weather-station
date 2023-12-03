@@ -28,4 +28,22 @@
         }
     };
 
-    module.exports = retrieveLastEntry;
+    async function retrieveEntries (database) {
+        let current_timestamp = Number(new Date().getTime());
+        let day_border = current_timestamp - 86400000;
+        try {
+            let data = await database.model("current_weeks", dataScheme).find({});
+            //console.log(data[data.length - 1])
+            let databaseObj = data[data.length - 1]
+            console.log(databaseObj);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+
+    const middleware = {
+        retrieveLastEntry, 
+        retrieveEntries
+    }
+    module.exports = middleware;

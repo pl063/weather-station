@@ -8,10 +8,10 @@
         temperature : { type: Number, default: 0 },
         humidity : { type: Number, default: 0 },
         pressure : { type: Number, default: 0 },
-        rain : { type: Number, default: 0 }
+        rain : { type: Number, default: 0 },
+        created_at: { type: Number }
       });
     
-    current_state.set("timestamps", true);
 
 
       module.exports = current_state;

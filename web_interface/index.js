@@ -13,7 +13,7 @@
 
     
    
-    const retrieveLastEntry = require("./middleware.js");
+    const middleware = require("./middleware.js");
   //  const getCurrentState = require("./fetchDb.js")
 
     app.engine(".hbs", expressHandlebars.create({
@@ -68,7 +68,7 @@
             let renderArgument = [];
 
             if (connectedDatabase) {
-                let result = await retrieveLastEntry(database);
+                let result = await middleware.retrieveLastEntry(database);
                // console.log(result);
                 renderArgument.push(result);
             } else {
@@ -100,7 +100,7 @@
 
     app.route("/logs")
     .get( (req, res) => {
-        res.render("homePage", {layout: "logs"}, (err, html) => {
+        res.render("homePage", {layout: "logs"}, async function(err, html) {
             if(err) {
                 res.statusCode = 444; 
                 console.log(err);
@@ -110,6 +110,21 @@
                  res.send(html);
             }
         });
+    })
+
+    app.route("/logs/entries")
+    .get( async function (req, res) {
+        try {
+            let entries = [];
+
+            if (connectedDatabase) {
+                let result = await middleware.retrieveEntries(database);
+                console.log(result)
+            } 
+            res.send(entries);
+        } catch (err){
+            console.log(err);
+        }
     })
 
 
