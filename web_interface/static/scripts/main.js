@@ -6,13 +6,13 @@
 
     function main (event) {
         //update time each minute
-        getAltitude();
+        //getAltitude();
         setInterval(updateTime, 6000);
         event.preventDefault();
         updateImages();
         setInterval(function () {
         window.location.reload();
-        getAltitude();
+        //getAltitude();
         updateImages();
        }, 600000); 	//refresh page each 10 minutes
        
