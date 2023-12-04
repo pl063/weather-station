@@ -2,13 +2,22 @@
 from bme280pi import Sensor
 from gpiozero import InputDevice
 import datetime
+import time
 from bson.timestamp import Timestamp
 from math import ceil
+import RPi.GPIO as GPIO
+import os
+
+from led_output import led_output
 
 
 isRaining = InputDevice(18) # 1 if it's not raining, 0 if it's raining
 
 sensor = Sensor(address=0x77) 
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.OUT)
+GPIO.output(17, GPIO.HIGH)
+#led_output("uploading")
 
 class Average_state_class : 
      def __init__(self,  temperature, humidity, pressure, rain, created_at):
@@ -26,6 +35,10 @@ def extractBME():
         result.append(ceil(sensor.get_pressure()))
     except Exception as arg:
          print("Something's wrong with the BME sensor : \n", arg)
+         GPIO.output(17, GPIO.LOW)
+         time.sleep(3)
+         GPIO.output(17, GPIO.HIGH)
+         time.sleep(5)
          result = [0, 0, 0]
     return result
 

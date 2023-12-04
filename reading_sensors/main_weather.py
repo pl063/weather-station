@@ -21,7 +21,6 @@ class Current_state_class :
     
   
 def main():
-
     weatherList = extractBME()
     rainFlag = determineRainState()
     #write values in current object
