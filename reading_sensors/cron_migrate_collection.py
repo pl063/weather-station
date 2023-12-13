@@ -1,6 +1,13 @@
+#!/usr/bin/env python
+
+
 #cron job to migrate all entries of col1 to col2 at midnight additional settings are required in OS
 
 from pymongo import MongoClient
+import logging
+logging.basicConfig(filename="main_weather.log", encoding="utf-8", level=logging.DEBUG)
+
+from utils import extractTime
 
 uri = "mongodb+srv://weather-station.lllcyel.mongodb.net/Weather?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority"
 
@@ -15,8 +22,8 @@ try:
                         tls=True,
                         tlsCertificateKeyFile='/home/viper/weather-station/reading_sensors/cert.pem',
                         )
-        print("You successfully connected to MongoDB!")
-
+        logging.info("Pinged your deployment. You successfully connected to MongoDB!" + "<<CRON" + extractTime())
+        print(">>MIGRATED")
         mydb = client["Weather"]
         col1 = mydb["current_days"]
         col2 = mydb["current_weeks"]
@@ -26,4 +33,5 @@ try:
         col1.delete_many({})
        
 except Exception as e:
-        print(e)
+        logging.error(e)
+        pass

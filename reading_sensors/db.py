@@ -1,4 +1,6 @@
 from pymongo import MongoClient
+import logging
+from utils import extractTime
 
 def connect_database():
     try:
@@ -9,4 +11,5 @@ def connect_database():
         print("Pinged your deployment. You successfully connected to MongoDB!")
         return client
     except Exception as e:
-        print(e)
+        logging.critical("<<db" + extractTime(), e)
+        pass

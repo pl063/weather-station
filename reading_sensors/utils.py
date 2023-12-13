@@ -7,16 +7,35 @@ from bson.timestamp import Timestamp
 from math import ceil
 import RPi.GPIO as GPIO
 import os
+import logging
+#logging.basicConfig(filename="utils.log", encoding="utf-8", level=logging.DEBUG)
 
 from led_output import led_output
 
+def extractTime(): 
+    currentTime = datetime.datetime.now()
+    result = currentTime.strftime("%Y-%m-%d %H:%M:%S")
+    return result
+
 
 isRaining = InputDevice(18) # 1 if it's not raining, 0 if it's raining
-
-sensor = Sensor(address=0x77) 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.OUT)
 GPIO.output(17, GPIO.HIGH)
+try:
+    sensor = Sensor(address=0x77) 
+
+except Exception as arg:
+   logging.critical("Something's wrong with the BME sensor : \n" + extractTime(), arg)
+   logging.info('restarting sensor...' + extractTime())
+   GPIO.output(17, GPIO.LOW)
+   time.sleep(3)
+   GPIO.output(17, GPIO.HIGH)
+   time.sleep(5)
+   try:
+        sensor = Sensor(address=0x77) 
+   except Exception as arg:
+       logging.critical("Restarting didn't help :( \n" + extractTime(), arg)
 #led_output("uploading")
 
 class Average_state_class : 
@@ -34,7 +53,8 @@ def extractBME():
         result.append(ceil(sensor.get_humidity()))
         result.append(ceil(sensor.get_pressure()))
     except Exception as arg:
-         print("Something's wrong with the BME sensor : \n", arg)
+         logging.critical("Something's wrong with the BME sensor : \n" + extractTime(), arg)
+         logging.info('restarting sensor...' + extractTime())
          GPIO.output(17, GPIO.LOW)
          time.sleep(3)
          GPIO.output(17, GPIO.HIGH)
@@ -50,13 +70,9 @@ def determineRainState():
         else: 
             return 1
     except Exception as arg : 
-        print("Something's wrong with the rain sensor : \n", arg)
+        logging.error("Something's wrong with the rain sensor : \n" + extractTime(), arg)
         return "unknown"
     
-def extractTime(): 
-    currentTime = datetime.datetime.now()
-    result = currentTime.strftime("%Y-%m-%d %H:%M:%S")
-    return result
 
 def average_states(arr, counter):
 
@@ -69,25 +85,29 @@ def average_states(arr, counter):
 
     i = 0
 
-    for obj in arr :
+    try:
+        for obj in arr :
 
-        if(obj == 0) :
-            continue
-        current_sum_temp += obj.temperature
-        current_sum_press += obj.pressure
-        current_sum_hum += obj.humidity
-        current_sum_rain += obj.rain
+            if(obj == 0) :
+                continue
+            current_sum_temp += obj.temperature
+            current_sum_press += obj.pressure
+            current_sum_hum += obj.humidity
+            current_sum_rain += obj.rain
 
-        if(i + 1  == counter) :
-            count = len(arr)
-            t = ceil(current_sum_temp / count)
-            h =  ceil(current_sum_hum / count)
-            p =  ceil(current_sum_press / count)
-            r =  ceil(current_sum_rain / count)
-            timestamp = Timestamp(int(datetime.datetime.today().timestamp()), 1)
-            current_average =  Average_state_class(t, h, p, r, timestamp.time)
+            if(i + 1  == counter) :
+                count = len(arr)
+                t = ceil(current_sum_temp / count)
+                h =  ceil(current_sum_hum / count)
+                p =  ceil(current_sum_press / count)
+                r =  ceil(current_sum_rain / count)
+                timestamp = Timestamp(int(datetime.datetime.today().timestamp()), 1)
+                current_average =  Average_state_class(t, h, p, r, timestamp.time)
 
-        else :
-            i += 1
+            else :
+                i += 1
 
-    return  current_average
+        return  current_average
+    except Exception as err:
+        logging.critical( "<<utils" + extractTime(), err)
+        pass

@@ -3,9 +3,15 @@
 
 from time import sleep
 from pprint import pprint
+import logging
 
-from utils import extractBME, average_states, determineRainState
+#logger setup
+logging.basicConfig(filename="main_weather.log", encoding="utf-8", level=logging.DEBUG)
+
+from utils import extractBME, average_states, determineRainState, extractTime
 from api import insert_current_state
+
+from led_output import led_output
 
 #array with current state to cache
 weather_arr = []
@@ -21,6 +27,7 @@ class Current_state_class :
     
   
 def main():
+    logging.info("Main weather is running " + extractTime())
     weatherList = extractBME()
     rainFlag = determineRainState()
     #write values in current object
@@ -32,33 +39,24 @@ def main():
     weather_arr.append(current_state)
 
     if(len(weather_arr) == average_counter):
-          print("We have 10 states now, let's find the average")
+          logging.info("Averagazing 10 states" + extractTime())
           try :
               t = average_states(weather_arr, average_counter)
               weather_arr.clear()
               #pprint(vars(t))
               insert_current_state(t.__dict__)
           except Exception as arg:
-              print(arg)
+              logging.error(extractTime(), arg)
+              pass
     return 
 
 
 #main loop 
 while True:
     try:
+        led_output("uploading")
         main()
     except Exception as argument: #Main error handling for any kind of error
-        print("Seems like error ocurred. Here's what happened : \n", argument)
+        logging.error("Seems like error ocurred. Here's what happened : \n" + extractTime(), argument)
+        pass
     sleep(timer)
-
-
-
-
-
-
-#################################
-
-
-    
-
-    
