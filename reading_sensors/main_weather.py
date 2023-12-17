@@ -2,6 +2,7 @@
 #raindrop sensor DO connected to GPIO18
 
 from time import sleep
+import datetime
 from pprint import pprint
 import logging
 
@@ -10,6 +11,7 @@ logging.basicConfig(filename="main_weather.log", encoding="utf-8", level=logging
 
 from utils import extractBME, average_states, determineRainState, extractTime
 from api import insert_current_state
+from cron_migrate_collection import mainMigration
 
 from led_output import led_output
 
@@ -27,6 +29,12 @@ class Current_state_class :
     
   
 def main():
+    currentTime = datetime.datetime.now()
+    print(currentTime.strftime("%H:%M"))
+    if (currentTime.strftime("%H:%M") ==  "00:00"): 
+        #it is midnight, perform migration
+        mainMigration
+        
     logging.info("Main weather is running " + extractTime())
     weatherList = extractBME()
     rainFlag = determineRainState()
