@@ -13,6 +13,7 @@
         .then(response=>response.json())
         .then( function drawData(data) {
           let entries = JSON.parse(data);
+          console.log(entries)
           new Chart(
             document.getElementById("chart"), //context for the chart
             {

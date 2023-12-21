@@ -1,21 +1,23 @@
-    const express = require("express");
-    const logger = require("morgan");
-    const mongoose = require("mongoose");
-    const bodyParser = require("body-parser");
-    const path = require("path");
+    import express from "express";
+    import morgan from "morgan";
+    import mongoose from "mongoose";
+    import bodyParser from "body-parser";
+    import expressHandlebars from "express-handlebars";
+    import path from "path";
+    import { URL } from "url";
   
-    require("dotenv").config();
-   // const dbUrl = require("./conf.js");
+    import { configDotenv } from "dotenv";
+    import { DATABASE_URL } from "./conf.js";
+    import {middleware} from "./middleware.js"
 
     const app = express();
     const port = 5500; 
-    const expressHandlebars = require("express-handlebars");
 
-    
-   
-    const middleware = require("./middleware.js");
+
   //  const getCurrentState = require("./fetchDb.js")
 
+    //const __filename = new URL('', import.meta.url).pathname;
+    const __dirname = new URL('.', import.meta.url).pathname;
     app.engine(".hbs", expressHandlebars.create({
         extname: ".hbs",
         defaultLayout: 'main', 
@@ -30,7 +32,7 @@
     app.use('/static', express.static('static'));
     app.use('/node_modules', express.static('node_modules'))
     app.use(express.urlencoded({extended: true}));
-    app.use(logger("dev"));
+    app.use(morgan("dev"));
     app.use(express.json());
     app.set('views', './views/');
     app.use(express.json()) 
@@ -40,7 +42,7 @@
 
     //Connect to db
     let connectedDatabase = false;
-    const mongoString = process.env.DATABASE_URL;
+    const mongoString = DATABASE_URL;
     //console.log(mongoString);
     mongoose.connect(mongoString);
 
