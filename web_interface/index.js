@@ -3,10 +3,11 @@
     import mongoose from "mongoose";
     import bodyParser from "body-parser";
     import expressHandlebars from "express-handlebars";
+    import { fileURLToPath } from 'url';
+    import { dirname } from 'path';
     import path from "path";
-    import { URL } from "url";
   
-    import { configDotenv } from "dotenv";
+ 
     import { DATABASE_URL } from "./conf.js";
     import {middleware} from "./middleware.js"
 
@@ -14,15 +15,13 @@
     const port = 5500; 
 
 
-  //  const getCurrentState = require("./fetchDb.js")
-
-    //const __filename = new URL('', import.meta.url).pathname;
-    const __dirname = new URL('.', import.meta.url).pathname;
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
     app.engine(".hbs", expressHandlebars.create({
         extname: ".hbs",
         defaultLayout: 'main', 
-        layoutsDir: __dirname + '/views/layouts/',
-        partialsDir: __dirname + '/views/partials/'
+        layoutsDir:  path.join(__dirname, '/views/layouts/'),
+        partialsDir: path.join(__dirname, '/views/partials/')
     }).engine);
 
     app.use(bodyParser.json({limit: "50mb"}));
@@ -34,7 +33,7 @@
     app.use(express.urlencoded({extended: true}));
     app.use(morgan("dev"));
     app.use(express.json());
-    app.set('views', './views/');
+    app.set('views', './views');
     app.use(express.json()) 
 
     app.enable("view cache");
