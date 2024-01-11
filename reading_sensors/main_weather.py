@@ -30,10 +30,10 @@ class Current_state_class :
   
 def main():
     currentTime = datetime.datetime.now()
-    print(currentTime.strftime("%H:%M"))
-    if (currentTime.strftime("%H:%M") ==  "00:00"): 
+    if (currentTime.hour == 0 and currentTime.minute == 0): 
         #it is midnight, perform migration
-        mainMigration
+        logging.info("Callig mainMigration function")
+        mainMigration()
         
     logging.info("Main weather is running " + extractTime())
     weatherList = extractBME()
@@ -52,7 +52,9 @@ def main():
               t = average_states(weather_arr, average_counter)
               weather_arr.clear()
               #pprint(vars(t))
+              logging.info("Averagized done " + extractTime())
               insert_current_state(t.__dict__)
+              logging.info("api finished " + extractTime())
           except Exception as arg:
               logging.error(extractTime(), arg)
               pass

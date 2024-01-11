@@ -2,6 +2,7 @@
 
 from pymongo import MongoClient
 import logging
+logging.basicConfig(filename="main_weather.log", encoding="utf-8", level=logging.DEBUG)
 
 
 from led_output import led_output
@@ -29,6 +30,7 @@ except Exception as e:
 def insert_current_state(state):
     try:
            led_output("uploading")
+           logging.info( "<<api RUNNING" + extractTime())
            mycol = mydb["current_days"]
            x = mycol.insert_one(state)
           # print(state)
