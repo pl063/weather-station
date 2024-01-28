@@ -19,6 +19,8 @@ from led_output import led_output
 weather_arr = []
 timer = 60 #sleep timer for main loop in seconds
 average_counter = 10 #how many objects should be averaged
+flags = [False]
+
 
 class Current_state_class : 
      def __init__(self,  temperature, humidity, pressure, rain):
@@ -30,10 +32,12 @@ class Current_state_class :
   
 def main():
     currentTime = datetime.datetime.now()
-    if (currentTime.hour == 0 and currentTime.minute == 0): 
+    flag = flags[len(flags) - 1]
+    if (currentTime.hour == 0 and flag == False): 
         #it is midnight, perform migration
         logging.info("Callig mainMigration function")
         mainMigration()
+        flags.append(True)
         
     logging.info("Main weather is running " + extractTime())
     weatherList = extractBME()
@@ -62,6 +66,7 @@ def main():
 
 
 #main loop 
+
 while True:
     try:
         led_output("uploading")

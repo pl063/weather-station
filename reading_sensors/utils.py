@@ -27,13 +27,13 @@ try:
 
 except Exception as arg:
    logging.critical("Something's wrong with the BME sensor : \n" + extractTime(), arg)
-   logging.info('restarting sensor...' + extractTime())
+   logging.info('restarting sensor... changing address' + extractTime())
    GPIO.output(17, GPIO.LOW)
    time.sleep(3)
    GPIO.output(17, GPIO.HIGH)
    time.sleep(5)
    try:
-        sensor = Sensor(address=0x77) 
+        sensor = Sensor(address=0x76) 
    except Exception as arg:
        logging.critical("Restarting didn't help :( \n" + extractTime(), arg)
 #led_output("uploading")
