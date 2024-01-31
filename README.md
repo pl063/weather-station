@@ -25,7 +25,9 @@ Since this sensor sometimes may disappear from I²C addresses, it has to restart
 YL-83 control board returns digital output, it is connected to a GPIO pin.
 
 Cron jobs are important for the station's functionality. To use them, add these to “crontab -e” (*WITHOUT* sudo):
+
 @reboot python main weather.py 
+
 1.0.0.0 python cron_migration. py
 
 # Web GUI 
