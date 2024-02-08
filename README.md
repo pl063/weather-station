@@ -26,9 +26,9 @@ YL-83 control board returns digital output, it is connected to a GPIO pin.
 
 Cron jobs are important for the station's functionality. To use them, add these to “crontab -e” (*WITHOUT* sudo):
 
-@reboot python main weather.py 
+@reboot python /path_to/main_weather.py 
 
-1.0.0.0 python cron_migration. py
+1.0.0.0 sudo reboot
 
 # Web GUI 
 It is based on ExpressJS and HandlebarsJS. It consists of server-side services and web client. You need to start the "index.js" file with node. For the best performance, use the "nodemon” package. The "Morgan" logger logs into the terminal each request to the server, the time for the response, and the response code.
