@@ -36,3 +36,7 @@ It is based on ExpressJS and HandlebarsJS. It consists of server-side services a
 The Web GUI is *not* ran on the microcontroller, only the code in the directory, named "reading-sensors".
 
 # This project comes with NO WARRANTY.
+
+# Note about using bme280pi code
+If you encounter issues "Input/Output error" without having any prolems with I^2C or the BME sensor, try replacing smbus imports in bme280pi code with:
+from smbus2 import SMBus
