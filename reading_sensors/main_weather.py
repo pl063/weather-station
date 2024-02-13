@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Import libraries:
 #raindrop sensor DO connected to GPIO18
 
@@ -33,6 +35,7 @@ class Current_state_class :
 def main():
     currentTime = datetime.datetime.now()
     flag = flags[len(flags) - 1]
+    logging.info("The current flag is " + str(flag))
     if (currentTime.hour == 0 and flag == False): 
         #it is midnight, perform migration
         logging.info("Callig mainMigration function")
