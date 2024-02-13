@@ -45,16 +45,6 @@
         }
     }
 
-    async function migrate () {
-        try {
-            let data = await current_days.find({}).toArray();
-            current_weeks.insertMany(data);
-
-            current_days.deleteMany({})
-        } catch (err) {
-            console.log(err);
-        }
-    }
 
   export const middleware = {
         retrieveLastEntry, 
