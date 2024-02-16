@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-# Import libraries:
-#raindrop sensor DO connected to GPIO18
+# Raindrop sensor IS connected to GPIO18
+# Bme280 sensor IS connected to SDA, SCL, GPIO17 (+) and GND
 
 from time import sleep
 import os
@@ -23,7 +23,7 @@ from led_output import led_output
 weather_arr = []
 timer = 60 #sleep timer for main loop in seconds
 average_counter = 10 #how many objects should be averaged
-flags = [False]
+flags = [False] #check if the collection is already migrated
 
 
 class Current_state_class : 
@@ -53,13 +53,14 @@ def main():
     #Print object in readable format
     #res = vars(current_state)
     #pprint(res)
-    #add state to the array
+     
+    #add state to the cache array
     weather_arr.append(current_state)
 
     if(len(weather_arr) == average_counter):
           logging.info("Averagazing 10 states" + extract_time())
           try :
-              t = average_states(weather_arr, average_counter)
+              t = average_states(weather_arr, average_counter) #averagize the states
               weather_arr.clear()
               #pprint(vars(t))
               logging.info("Averagized done " + extract_time())

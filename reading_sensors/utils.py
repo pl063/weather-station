@@ -23,8 +23,9 @@ is_raining = InputDevice(18) # 1 if it's not raining, 0 if it's raining
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.OUT)
 GPIO.output(17, GPIO.HIGH)
+
 try:
-    sensor = Sensor(address=0x76) 
+    sensor = Sensor(address=0x76) #initialize bme sensor
 
 except Exception as arg:
    logging.critical("Something's wrong with the BME sensor : \n" + extract_time(), arg)
@@ -33,7 +34,8 @@ except Exception as arg:
    time.sleep(3)
    GPIO.output(17, GPIO.HIGH)
    time.sleep(5)
-   try:
+    
+   try: #try chaning the address
         sensor = Sensor(address=0x77) 
    except Exception as arg:
         logging.info("Restarting didn't help :( \n" + extract_time(), arg)

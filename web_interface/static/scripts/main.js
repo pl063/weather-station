@@ -31,7 +31,6 @@
     }
 
     function updateImages () {
-        let urlObj;
 
         const weatherIcon = document.querySelector("#icon");
         const temperatureElement = document.querySelector("#temperature");
@@ -70,22 +69,7 @@
         weatherIcon.src = result.iconUrl;
         //backgroundElement.style.backgroundImage = `url(${result.backgroundUrl})`; 
     }
-
-    function getAltitude () {
-        const pressureElement = document.querySelector("#pressure");
-        const altitudeElement = document.querySelector("#altitude");
-
-        const pressure = Number(pressureElement.textContent.substring(0, 4));
-
-        let altitude;
-        let x = Math.ceil(Number(pressure) / 1013.25);
-        isNaN(pressure) ? altitude = "N/A" : altitude = 145366.45 * (1 -  Math.pow(x, 0.190284));
-       //console.log(altitude)
-        altitudeElement.textContent = `${altitude}m`
-    };
  
-
-
     //show time on 1st upload
     updateTime();
 

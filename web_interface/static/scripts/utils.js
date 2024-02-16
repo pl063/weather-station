@@ -4,7 +4,7 @@
         let date = new Date();
 
         let day = date.getDate();
-        let shortMonth = date.getMonth();
+        let shortMonth = date.getMonth() + 1; //january is 0
         let year = date.getFullYear();
         let currentDay = `${day}/${shortMonth}/${year}`;
 
