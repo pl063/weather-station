@@ -7,18 +7,19 @@ from bson.timestamp import Timestamp
 from math import ceil
 import RPi.GPIO as GPIO
 import os
+import sys
 import logging
 #logging.basicConfig(filename="utils.log", encoding="utf-8", level=logging.DEBUG)
 
 from led_output import led_output
 
-def extractTime(): 
-    currentTime = datetime.datetime.now()
-    result = currentTime.strftime("%Y-%m-%d %H:%M:%S")
+def extract_time(): 
+    current_time = datetime.datetime.now()
+    result = current_time.strftime("%Y-%m-%d %H:%M:%S")
     return result
 
 
-isRaining = InputDevice(18) # 1 if it's not raining, 0 if it's raining
+is_raining = InputDevice(18) # 1 if it's not raining, 0 if it's raining
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.OUT)
 GPIO.output(17, GPIO.HIGH)
@@ -26,8 +27,8 @@ try:
     sensor = Sensor(address=0x76) 
 
 except Exception as arg:
-   logging.critical("Something's wrong with the BME sensor : \n" + extractTime(), arg)
-   logging.info('restarting sensor... changing address' + extractTime())
+   logging.critical("Something's wrong with the BME sensor : \n" + extract_time(), arg)
+   logging.info('restarting sensor... changing address' + extract_time())
    GPIO.output(17, GPIO.LOW)
    time.sleep(3)
    GPIO.output(17, GPIO.HIGH)
@@ -35,7 +36,8 @@ except Exception as arg:
    try:
         sensor = Sensor(address=0x77) 
    except Exception as arg:
-       logging.critical("Restarting didn't help :( \n" + extractTime(), arg)
+        logging.info("Restarting didn't help :( \n" + extract_time(), arg)
+        os.execv(sys.argv[0], sys.argv) #restart the script
 #led_output("uploading")
 
 class Average_state_class : 
@@ -46,15 +48,15 @@ class Average_state_class :
         self.rain = rain
         self.created_at = created_at
 
-def extractBME():
+def extract_BME():
     try :
         result = []
         result.append(ceil(sensor.get_temperature()))
         result.append(ceil(sensor.get_humidity()))
         result.append(ceil(sensor.get_pressure()))
     except Exception as arg:
-         logging.critical("Something's wrong with the BME sensor : \n" + extractTime(), arg)
-         logging.info('restarting sensor...' + extractTime())
+         logging.info("Something's wrong with the BME sensor : \n" + extract_time(), arg)
+         logging.info('restarting sensor...' + extract_time())
          GPIO.output(17, GPIO.LOW)
          time.sleep(3)
          GPIO.output(17, GPIO.HIGH)
@@ -62,15 +64,15 @@ def extractBME():
          result = [0, 0, 0]
     return result
 
-def determineRainState(): 
+def determine_rain_state(): 
     try:
-        result = isRaining.value
+        result = is_raining.value
         if (result == 1):
             return 0
         else: 
             return 1
     except Exception as arg : 
-        logging.error("Something's wrong with the rain sensor : \n" + extractTime(), arg)
+        logging.error("Something's wrong with the rain sensor : \n" + extract_time(), arg)
         return "unknown"
     
 
@@ -109,5 +111,10 @@ def average_states(arr, counter):
 
         return  current_average
     except Exception as err:
-        logging.critical( "<<utils" + extractTime(), err)
+        logging.critical( "<<utils" + extract_time(), err)
         pass
+
+def restart_os() :
+    logging.info("Restarting OS" + extract_time())
+    os.system("shutdown /r /t 0")
+    
