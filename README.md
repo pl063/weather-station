@@ -26,9 +26,9 @@ YL-83 control board returns digital output, it is connected to a GPIO pin.
 
 Cron jobs are important for the station's functionality. To use them, add these to “crontab -e” (*WITHOUT* sudo):
 
-@reboot python /path_to/main_weather.py 
+@reboot python3 /path_to/main_weather.py 
 
-1.0.0.0 sudo reboot
+0 1 * * * sudo reboot
 
 # Web GUI 
 It is based on ExpressJS and HandlebarsJS. It consists of server-side services and web client. You need to start the "index.js" file with node. For the best performance, use the "nodemon” package. The "Morgan" logger logs into the terminal each request to the server, the time for the response, and the response code.
@@ -36,7 +36,3 @@ It is based on ExpressJS and HandlebarsJS. It consists of server-side services a
 The Web GUI is *not* ran on the microcontroller, only the code in the directory, named "reading-sensors".
 
 # This project comes with NO WARRANTY.
-
-# Note about using bme280pi code
-If you encounter issues "Input/Output error" without having any prolems with I^2C or the BME sensor, try replacing smbus imports in bme280pi code with:
-from smbus2 import SMBus
