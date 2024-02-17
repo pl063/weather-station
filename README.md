@@ -1,3 +1,5 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/c1713fd96a5aaa62b9a5/maintainability)](https://codeclimate.com/github/pl063/weather-station/maintainability)
+
 # Weather station
 You can remotely monitor the state of temperature, humidity, air pressure in your home using this Weather station, built with Raspberry Pi 4 and sensors. Thanks to its GUI this system, you can always view the logs in the database. 
 
