@@ -21,8 +21,8 @@ from led_output import led_output
 
 #array with current state to cache
 weather_arr = []
-timer = 10 #sleep timer for main loop in seconds
-average_counter = 2 #how many objects should be averaged
+timer = 60 #sleep timer for main loop in seconds
+average_counter = 10 #how many objects should be averaged
 flags = [False] #check if the collection is already migrated
 
 
