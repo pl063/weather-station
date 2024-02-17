@@ -78,9 +78,25 @@ def determine_rain_state():
         return "unknown"
     
 
+def calc(values, count):
+
+    result = []
+
+    for value in values:
+        temp_res = ceil(value / count)
+        result.append(temp_res)
+            
+        timestamp = Timestamp(int(datetime.datetime.today().timestamp()), 1)
+
+    [t, h, p, r] = result #destrucure / unpack array list
+    current_average =  Average_state_class(t, h, p, r, timestamp.time)
+
+    return current_average
+
+
 def average_states(arr, counter):
 
-    current_average = {}
+    result = {}
 
     current_sum_temp = 0
     current_sum_press = 0
@@ -101,22 +117,16 @@ def average_states(arr, counter):
 
             if(i + 1  == counter) :
                 count = len(arr)
-                t = ceil(current_sum_temp / count)
-                h =  ceil(current_sum_hum / count)
-                p =  ceil(current_sum_press / count)
-                r =  ceil(current_sum_rain / count)
-                timestamp = Timestamp(int(datetime.datetime.today().timestamp()), 1)
-                current_average =  Average_state_class(t, h, p, r, timestamp.time)
-
+                result = calc([current_sum_temp, current_sum_press, current_sum_hum, current_sum_rain], count)
             else :
                 i += 1
 
-        return  current_average
+        return  result
     except Exception as err:
         logging.critical( "<<utils" + extract_time(), err)
         pass
 
 def restart_os() :
     logging.info("Restarting OS" + extract_time())
-    os.system("shutdown /r /t 0")
+    os.system("sudo reboot")
     
