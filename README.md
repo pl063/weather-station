@@ -3,7 +3,9 @@
 # Weather station
 You can remotely monitor the state of temperature, humidity, air pressure in your home using this Weather station, built with Raspberry Pi 4 and sensors. Thanks to its GUI this system, you can always view the logs in the database. 
 
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](/media/weather_station_beta_bb.png)
+## Wiring up the stations components
+<a href="url"><img src="/media/weather_station_beta_bb.png" align="center" height="450px" width="300px" ></a>
+
 # Database setup
 For this project, I use the MongoDB cluster. It consists of several collections: "current-days", "current_weeks" and "current_months". 
 The collection names follow Mongo convention for naming.
