@@ -43,7 +43,7 @@ def main():
         logging.info("Calling main migration function")
         main_migration()
         flags.append(True)
-        restart_os()
+        #restart_os()
         
     logging.info("Main weather is running " + extract_time())
     weather_list = extract_BME()
