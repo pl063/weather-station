@@ -40,4 +40,7 @@ It is based on ExpressJS and HandlebarsJS. It consists of server-side services a
 
 The Web GUI is *not* ran on the microcontroller, only the code in the directory, named "reading-sensors".
 
+# Viper HAT
+I used utils (https://github.com/raspberrypi/utils) eeptools for flashing the eeprom image.
+
 # This project comes with NO WARRANTY.
