@@ -4,7 +4,7 @@
 You can remotely monitor the state of temperature, humidity, air pressure in your home using this Weather station, built with Raspberry Pi 4 and sensors. Thanks to its GUI this system, you can always view the logs in the database. 
 
 ## Wiring up the stations components
-<a href="url"><img src="/media/weather_station_beta_bb.png" align="center" height="450px" width="300px" ></a>
+<a href="url"><img src="https://github.com/pl063/weather-station/blob/main/media/weather_station_beta_bb.png" align="center" height="450px" width="300px" ></a>
 
 | Device | Device Pins    | Raspberry Pins    |
 | :--   | :-- | :-- |
