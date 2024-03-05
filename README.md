@@ -3,6 +3,40 @@
 # Weather station
 You can remotely monitor the state of temperature, humidity, air pressure in your home using this Weather station, built with Raspberry Pi 4 and sensors. Thanks to its GUI this system, you can always view the logs in the database. 
 
+## Wiring up the stations components
+<a href="url"><img src="/media/weather_station_beta_bb.png" align="center" height="450px" width="300px" ></a>
+
+| Device | Device Pins    | Raspberry Pins    |
+| :--   | :-- | :-- |
+|BME280|   |   |
+|  | VCC  | GPIO 17   |
+|  | GND  | GND   |
+|  | SDA  | SDA   |
+|  | SCL  | SCL   |
+|YL-83 control board|   |   |
+|  | VCC  | +5V   |
+|  | GND  | GND   |
+|  | AO  | x   |
+|  | DO  | GPIO 18   |
+|RGB led|   |   |
+|  | Cathode  | GND   |
+|  | Red  | GPIO 13   |
+|  | Blue  | GPIO 12   |
+|  | Green  | GPIO 19   |
+|RTC|   |   |
+|  | VCC  | +3.3V   |
+|  | GND  | GND   |
+|  | SDA  | SDA   |
+|  | SCL  | SCL   |
+|  | NC  | x   |
+|EEPROM|   |   |
+|  | VCC  | +5V   |
+|  | GND  | GND   |
+|  | SDA  | ID_SC   |
+|  | SCL  | ID_SD   |
+|  | WP  | GND   |
+
+
 # Database setup
 For this project, I use the MongoDB cluster. It consists of several collections: "current-days", "current_weeks" and "current_months". 
 The collection names follow Mongo convention for naming.
@@ -36,5 +70,8 @@ Cron jobs are important for the station's functionality. To use them, add these 
 It is based on ExpressJS and HandlebarsJS. It consists of server-side services and web client. You need to start the "index.js" file with node. For the best performance, use the "nodemon” package. The "Morgan" logger logs into the terminal each request to the server, the time for the response, and the response code.
 
 The Web GUI is *not* ran on the microcontroller, only the code in the directory, named "reading-sensors".
+
+# Viper HAT
+I used utils (https://github.com/raspberrypi/utils) eeptools for flashing the eeprom image.
 
 # This project comes with NO WARRANTY.

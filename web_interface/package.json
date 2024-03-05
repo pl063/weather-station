@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "express-handlebars": "^7.1.2"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "body-parser": "^1.20.2",
     "chart.js": "^4.4.0",
+    "express-handlebars": "^7.1.2",
+    "mongoose": "^8.2.0",
     "nodemon": "^3.0.1"
   }
 }
