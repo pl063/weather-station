@@ -74,4 +74,13 @@ The Web GUI is *not* ran on the microcontroller, only the code in the directory,
 # Viper HAT
 I used utils (https://github.com/raspberrypi/utils) eeptools for flashing the eeprom image.
 
+# Gallery
+<a href="url"><img src="https://res.cloudinary.com/weather-station-viper/image/upload/v1713517195/Screenshot_2024-04-19_at_11-59-33_Weather_station_Viper_v9eioc.png" align="center" height="568px" width="1366px" ></a>
+
+<a href="url"><img src="https://res.cloudinary.com/weather-station-viper/image/upload/v1713517305/Screenshot_2024-04-19_at_12-00-10_Weather_station_Viper_fptn31.png" align="center" height="568px" width="1366px" ></a>
+
+<a href="url"><img src="https://res.cloudinary.com/weather-station-viper/image/upload/v1713517305/Screenshot_2024-04-19_at_12-00-10_Weather_station_Viper_fptn31.png" align="center" height="568px" width="1366px" ></a>
+
+
+<a href="url"><img src="https://res.cloudinary.com/weather-station-viper/image/upload/v1713517381/Screenshot_2024-04-19_at_12-00-47_Weather_station_Viper_i9pn8u.png" align="center" height="568px" width="1366px" ></a>
 # This project comes with NO WARRANTY.
